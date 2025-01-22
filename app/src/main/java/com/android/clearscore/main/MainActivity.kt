@@ -1,4 +1,4 @@
-package com.android.clearscore
+package com.android.clearscore.main
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
