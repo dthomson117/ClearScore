@@ -36,6 +36,8 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.napier)
     implementation(libs.moshi)
+    implementation(libs.converter.moshi)
+    implementation(project(":domain"))
 
     testImplementation(libs.junit)
 
