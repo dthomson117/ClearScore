@@ -35,6 +35,7 @@ dependencies {
     implementation(libs.koin.android)
     implementation(libs.retrofit)
     implementation(libs.napier)
+    implementation(libs.moshi)
 
     testImplementation(libs.junit)
 
