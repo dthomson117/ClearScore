@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.flow
 
 /**
  * Implementation of [CreditScoreRepository], exposes Credit Score operations to the domain layer
+ * Shortcut - Would have implemented a local data source to cache data, such as Room
  */
 class CreditScoreRepositoryImpl(
     private val creditScoreRemoteDataSource: CreditScoreRemoteDataSource,
