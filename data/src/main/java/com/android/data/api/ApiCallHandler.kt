@@ -1,5 +1,6 @@
 package com.android.data.api
 
+import io.github.aakira.napier.Napier
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException
@@ -21,18 +22,20 @@ class ApiCallHandler {
                             emit(ApiResult.Success(it))
                         } ?: emit(ApiResult.ApiError.EmptyResponse)
                     } else {
+                        Napier.w("API Error: ${response.code()}")
                         response.errorBody()?.let {
                             it.close()
                             emit(ApiResult.ApiError.ResponseError(response.message()))
                         }
                     }
                 } catch (e: IOException) {
+                    Napier.e(e.message.toString(), e)
                     emit(ApiResult.ApiError.IOError(e.message, e))
                 } catch (e: HttpException) {
+                    Napier.e(e.message.toString(), e)
                     emit(ApiResult.ApiError.HttpError(e.code(), e.message()))
                 }
             }
-
         }
     }
 }

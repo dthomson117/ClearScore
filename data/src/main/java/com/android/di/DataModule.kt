@@ -25,7 +25,12 @@ val dataModule = module {
     factory { CreditScoreMapper(creditReportInfoMapper = get()) }
 
     // Repository
-    single<CreditScoreRepository> { CreditScoreRepositoryImpl(creditScoreRemoteDataSource = get()) }
+    single<CreditScoreRepository> {
+        CreditScoreRepositoryImpl(
+            creditScoreRemoteDataSource = get(),
+            creditScoreMapper = get()
+        )
+    }
 
     // Data Source
     single { CreditScoreRemoteDataSource(appApi = get(), apiCallHandler = get()) }
