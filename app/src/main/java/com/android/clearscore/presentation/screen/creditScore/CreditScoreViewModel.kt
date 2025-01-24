@@ -5,6 +5,7 @@ import com.android.clearscore.common.BaseViewModel
 import com.android.domain.model.CreditScore
 import com.android.domain.repository.CreditScoreRepository
 import com.android.domain.repository.RepositoryResult
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
 class CreditScoreViewModel(
@@ -23,14 +24,16 @@ class CreditScoreViewModel(
     }
 
     private suspend fun getCreditScore() {
-        when (val creditScore = creditScoreRepository.getCreditScore()) {
-            is RepositoryResult.Loading -> setState { copy(loading = true) }
-            is RepositoryResult.Error -> TODO()
-            is RepositoryResult.Success -> setState {
-                copy(
-                    creditScore = creditScore.data,
-                    loading = false
-                )
+        creditScoreRepository.getCreditScore().collect { creditScore ->
+            when (creditScore) {
+                is RepositoryResult.Loading -> setState { copy(loading = true) }
+                is RepositoryResult.Error -> TODO()
+                is RepositoryResult.Success -> setState {
+                    copy(
+                        creditScore = creditScore.data,
+                        loading = false
+                    )
+                }
             }
         }
     }

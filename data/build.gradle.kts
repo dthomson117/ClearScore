@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.ksp)
 }
 
 kotlin {
@@ -40,6 +41,7 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.napier)
     implementation(libs.moshi)
+    implementation(libs.moshi.kotlin)
     implementation(libs.converter.moshi)
     implementation(project(":domain"))
 

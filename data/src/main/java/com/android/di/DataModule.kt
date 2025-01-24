@@ -8,6 +8,8 @@ import com.android.data.mapper.CreditScoreMapper
 import com.android.data.repository.CreditScoreRepositoryImpl
 import com.android.data.source.CreditScoreRemoteDataSource
 import com.android.domain.repository.CreditScoreRepository
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.OkHttpClient
 import org.koin.dsl.module
 import retrofit2.Retrofit
@@ -40,7 +42,7 @@ private fun buildRetrofitInstance(client: OkHttpClient): AppApi {
     return Retrofit.Builder()
         .client(client)
         .baseUrl(BASE_URL)
-        .addConverterFactory(MoshiConverterFactory.create())
+        .addConverterFactory(MoshiConverterFactory.create(buildMoshi()))
         .build()
         .create(AppApi::class.java)
 }
@@ -53,3 +55,7 @@ private fun buildOkHttpClient(): OkHttpClient {
         .writeTimeout(30, TimeUnit.SECONDS)
         .build()
 }
+
+private fun buildMoshi(): Moshi = Moshi.Builder()
+    .addLast(KotlinJsonAdapterFactory())
+    .build()
