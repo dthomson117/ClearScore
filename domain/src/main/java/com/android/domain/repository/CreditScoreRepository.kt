@@ -4,5 +4,5 @@ import com.android.domain.model.CreditScore
 import kotlinx.coroutines.flow.Flow
 
 interface CreditScoreRepository {
-    suspend fun getCreditScore(): RepositoryResult<CreditScore>
+    suspend fun getCreditScore(): Flow<RepositoryResult<CreditScore>>
 }
