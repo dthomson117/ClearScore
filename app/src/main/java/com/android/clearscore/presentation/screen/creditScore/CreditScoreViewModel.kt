@@ -23,16 +23,14 @@ class CreditScoreViewModel(
     }
 
     private suspend fun getCreditScore() {
-        creditScoreRepository.getCreditScore().collect {
-            when (it) {
-                is RepositoryResult.Loading -> setState { copy(loading = true) }
-                is RepositoryResult.Error -> TODO()
-                is RepositoryResult.Success -> setState {
-                    copy(
-                        creditScore = it.data,
-                        loading = false
-                    )
-                }
+        when (val creditScore = creditScoreRepository.getCreditScore()) {
+            is RepositoryResult.Loading -> setState { copy(loading = true) }
+            is RepositoryResult.Error -> TODO()
+            is RepositoryResult.Success -> setState {
+                copy(
+                    creditScore = creditScore.data,
+                    loading = false
+                )
             }
         }
     }
