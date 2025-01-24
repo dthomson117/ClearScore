@@ -14,12 +14,12 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        Napier.base(DebugAntilog())
-
         startKoin {
             androidLogger()
             androidContext(this@App)
-            modules(dataModule, domainModule, appModule)
+            modules(domainModule, dataModule, appModule)
         }
+
+        Napier.base(DebugAntilog())
     }
 }

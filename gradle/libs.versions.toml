@@ -15,6 +15,8 @@ material = "1.12.0"
 moshi = "1.15.2"
 napier = "2.7.1"
 retrofit = "2.11.0"
+navigationRuntimeKtx = "2.8.5"
+navigationCompose = "2.8.5"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -41,6 +43,8 @@ material = { group = "com.google.android.material", name = "material", version.r
 moshi = { module = "com.squareup.moshi:moshi", version.ref = "moshi" }
 napier = { module = "io.github.aakira:napier", version.ref = "napier" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+androidx-navigation-runtime-ktx = { group = "androidx.navigation", name = "navigation-runtime-ktx", version.ref = "navigationRuntimeKtx" }
+androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
