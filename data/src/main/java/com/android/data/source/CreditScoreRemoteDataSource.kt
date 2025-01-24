@@ -13,6 +13,6 @@ class CreditScoreRemoteDataSource(
     private val appApi: AppApi,
     private val apiCallHandler: ApiCallHandler
 ) {
-    fun getCreditScore(): Flow<ApiResult<CreditScoreJson>> =
+    suspend fun getCreditScore(): ApiResult<CreditScoreJson> =
         apiCallHandler.safeApiCall { appApi.getCreditScore() }
 }
