@@ -1,8 +1,6 @@
 package com.android.data.api
 
 import io.github.aakira.napier.Napier
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException
 import retrofit2.Response
 import java.io.IOException
@@ -11,30 +9,23 @@ import java.io.IOException
  * Provides a generic way to handle API calls and their results
  */
 class ApiCallHandler {
-    fun <T> safeApiCall(apiCall: suspend () -> Response<T>): Flow<ApiResult<T>> {
-        return flow {
-            emit(ApiResult.Loading)
-
-            apiCall().let { response ->
-                try {
-                    if (response.isSuccessful) {
-                        response.body()?.let {
-                            emit(ApiResult.Success(it))
-                        } ?: emit(ApiResult.ApiError.EmptyResponse)
-                    } else {
-                        Napier.w("API Error: ${response.code()}")
-                        response.errorBody()?.let {
-                            it.close()
-                            emit(ApiResult.ApiError.ResponseError(response.message()))
-                        }
-                    }
-                } catch (e: IOException) {
-                    Napier.e(e.message.toString(), e)
-                    emit(ApiResult.ApiError.IOError(e.message, e))
-                } catch (e: HttpException) {
-                    Napier.e(e.message.toString(), e)
-                    emit(ApiResult.ApiError.HttpError(e.code(), e.message()))
+    suspend fun <T> safeApiCall(apiCall: suspend () -> Response<T>): ApiResult<T> {
+        apiCall().let { response ->
+            return try {
+                if (response.isSuccessful) {
+                    response.body()?.let {
+                        ApiResult.Success(it)
+                    } ?: ApiResult.ApiError.EmptyResponse
+                } else {
+                    Napier.w("API Error: ${response.code()}")
+                    ApiResult.ApiError.ResponseError(response.message())
                 }
+            } catch (e: IOException) {
+                Napier.e(e.message.toString(), e)
+                ApiResult.ApiError.IOError(e.message, e)
+            } catch (e: HttpException) {
+                Napier.e(e.message.toString(), e)
+                ApiResult.ApiError.HttpError(e.code(), e.message())
             }
         }
     }
