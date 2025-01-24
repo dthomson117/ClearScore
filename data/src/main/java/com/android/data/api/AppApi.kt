@@ -4,6 +4,9 @@ import com.android.data.model.CreditScoreJson
 import retrofit2.Response
 import retrofit2.http.GET
 
+/**
+ * Retrofit API for credit score
+ */
 interface AppApi {
 
     @GET(ENDPOINT)
