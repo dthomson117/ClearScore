@@ -3,7 +3,7 @@ package com.android.data.model
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class CreditScoreJson (
+data class CreditScoreJson(
     val accountIDVStatus: String,
     val creditReportInfo: CreditReportInfoJson,
     val dashboardStatus: String,
