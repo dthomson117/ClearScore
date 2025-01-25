@@ -1,6 +1,6 @@
 package com.android.domain.model
 
-data class CreditReportInfo (
+data class CreditReportInfo(
     val score: Int,
     val maxScoreValue: Int,
     val minScoreValue: Int,
@@ -9,7 +9,7 @@ data class CreditReportInfo (
         fun default() = CreditReportInfo(
             score = 0,
             maxScoreValue = 0,
-            minScoreValue = 0
+            minScoreValue = 0,
         )
     }
 }

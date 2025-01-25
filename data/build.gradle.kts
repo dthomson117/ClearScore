@@ -5,7 +5,7 @@ plugins {
 }
 
 kotlin {
-    jvmToolchain(11)
+    jvmToolchain(17)
 }
 
 android {
@@ -29,7 +29,7 @@ android {
         }
     }
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = "17"
     }
 }
 
@@ -46,7 +46,9 @@ dependencies {
     implementation(project(":domain"))
 
     testImplementation(libs.junit)
+    testImplementation(libs.mockk)
+    testImplementation(libs.strikt.core)
+    testImplementation(libs.kotlinx.coroutines.test)
 
     androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
 }

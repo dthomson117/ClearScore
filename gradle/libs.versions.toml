@@ -1,26 +1,30 @@
 [versions]
 agp = "8.7.3"
+assertjCore = "3.27.2"
 koin = "3.6.0-Beta5"
 kotlin = "2.0.21"
 coreKtx = "1.15.0"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
-kotlinxCoroutinesCore = "1.10.1"
+kotlinxCoroutines = "1.10.1"
 lifecycleRuntimeKtx = "2.8.7"
 activityCompose = "1.10.0"
 composeBom = "2025.01.00"
 appcompat = "1.7.0"
 material = "1.12.0"
+mockk = "1.13.16"
 moshi = "1.15.2"
 napier = "2.7.1"
 retrofit = "2.11.0"
 navigationRuntimeKtx = "2.8.5"
 navigationCompose = "2.8.5"
 ksp = "2.0.21-1.0.27"
+striktCore = "0.34.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+assertj-core = { module = "org.assertj:assertj-core", version.ref = "assertjCore" }
 converter-moshi = { module = "com.squareup.retrofit2:converter-moshi", version.ref = "retrofit" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
@@ -37,16 +41,18 @@ androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 koin = { module = "io.insert-koin:koin-core", version.ref = "koin" }
-koin-test = { module = "io.insert-koin:koin-test", version.ref = "koin" }
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
-kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutinesCore" }
+kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutines" }
+kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutines" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
 moshi = { module = "com.squareup.moshi:moshi", version.ref = "moshi" }
 moshi-kotlin = { module = "com.squareup.moshi:moshi-kotlin", version.ref = "moshi" }
 napier = { module = "io.github.aakira:napier", version.ref = "napier" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 androidx-navigation-runtime-ktx = { group = "androidx.navigation", name = "navigation-runtime-ktx", version.ref = "navigationRuntimeKtx" }
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
+strikt-core = { module = "io.strikt:strikt-core", version.ref = "striktCore" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

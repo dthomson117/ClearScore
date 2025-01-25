@@ -1,6 +1,6 @@
 package com.android.domain.model
 
-data class CreditScore (
+data class CreditScore(
     val creditReportInfo: CreditReportInfo
 ) {
     companion object {
