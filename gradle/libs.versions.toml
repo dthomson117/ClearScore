@@ -19,6 +19,7 @@ napier = "2.7.1"
 retrofit = "2.11.0"
 ksp = "2.0.21-1.0.27"
 striktCore = "0.34.0"
+turbine = "1.2.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -49,6 +50,7 @@ moshi-kotlin = { module = "com.squareup.moshi:moshi-kotlin", version.ref = "mosh
 napier = { module = "io.github.aakira:napier", version.ref = "napier" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 strikt-core = { module = "io.strikt:strikt-core", version.ref = "striktCore" }
+turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

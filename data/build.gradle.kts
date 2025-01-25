@@ -44,11 +44,15 @@ dependencies {
     implementation(libs.moshi.kotlin)
     implementation(libs.converter.moshi)
     implementation(project(":domain"))
+    implementation(project(":common_kotlin"))
+
 
     testImplementation(libs.junit)
     testImplementation(libs.mockk)
     testImplementation(libs.strikt.core)
     testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.turbine)
+    testImplementation(project(":common_kotlin"))
 
     androidTestImplementation(libs.androidx.junit)
 }
