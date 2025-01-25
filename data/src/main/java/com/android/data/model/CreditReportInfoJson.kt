@@ -32,4 +32,37 @@ data class CreditReportInfoJson(
     val equifaxScoreBand: Int,
     val equifaxScoreBandDescription: String,
     val daysUntilNextReport: Int
-)
+) {
+    companion object {
+        fun default() = CreditReportInfoJson(
+            score = 0,
+            scoreBand = 0,
+            clientRef = "",
+            status = "",
+            maxScoreValue = 0,
+            minScoreValue = 0,
+            monthsSinceLastDefaulted = 0,
+            hasEverDefaulted = false,
+            monthsSinceLastDelinquent = 0,
+            hasEverBeenDelinquent = false,
+            percentageCreditUsed = 0,
+            percentageCreditUsedDirectionFlag = 0,
+            changedScore = 0,
+            currentShortTermDebt = 0,
+            currentShortTermNonPromotionalDebt = 0,
+            currentShortTermCreditLimit = 0,
+            currentShortTermCreditUtilisation = 0,
+            changeInShortTermDebt = 0,
+            currentLongTermDebt = 0,
+            currentLongTermNonPromotionalDebt = 0,
+            currentLongTermCreditLimit = 0,
+            currentLongTermCreditUtilisation = 0,
+            changeInLongTermDebt = 0,
+            numPositiveScoreFactors = 0,
+            numNegativeScoreFactors = 0,
+            equifaxScoreBand = 0,
+            equifaxScoreBandDescription = "",
+            daysUntilNextReport = 0
+        )
+    }
+}

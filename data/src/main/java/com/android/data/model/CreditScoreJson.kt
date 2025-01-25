@@ -10,4 +10,15 @@ data class CreditScoreJson(
     val personaType: String,
     val coachingSummary: CoachingSummaryJson,
     val augmentedCreditScore: Int?
-)
+) {
+    companion object {
+        fun default() = CreditScoreJson(
+            accountIDVStatus = "",
+            creditReportInfo = CreditReportInfoJson.default(),
+            dashboardStatus = "",
+            personaType = "",
+            coachingSummary = CoachingSummaryJson.default(),
+            augmentedCreditScore = 0
+        )
+    }
+}
