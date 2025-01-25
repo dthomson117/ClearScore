@@ -26,9 +26,11 @@ import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.android.clearscore.presentation.common.ScreenLoading
+import com.android.clearscore.ui.theme.creditScoreSize
 import com.android.clearscore.ui.theme.progressBrush
+import com.android.clearscore.ui.theme.thinStroke
+import com.android.clearscore.ui.theme.xThickStroke
 import com.android.clearscore.ui.theme.xlText
 import com.android.domain.model.CreditReportInfo
 import com.example.clearscore.R
@@ -45,7 +47,7 @@ fun CreditScoreScreen(
     ) {
         AnimatedContent(targetState = uiState.loading, label = "LoadingAnimation") {
             if (it) {
-                ScreenLoading(modifier = Modifier.size(200.dp))
+                ScreenLoading(modifier = Modifier.size(creditScoreSize))
             } else {
                 CircularScoreIndicator(uiState.creditScore.creditReportInfo)
             }
@@ -70,7 +72,7 @@ fun CircularScoreIndicator(
 
     Box(
         contentAlignment = Alignment.Center,
-        modifier = modifier.size(200.dp)
+        modifier = modifier.size(creditScoreSize)
     ) {
         Canvas(modifier = Modifier.fillMaxSize()) {
             // Progress Arc
@@ -78,7 +80,7 @@ fun CircularScoreIndicator(
                 startAngle = -60f,
                 sweepAngle = 300f * (scoreAnimation.value * creditReportInfo.getScorePercentage()),
                 useCenter = false,
-                style = Stroke(width = 20f, cap = StrokeCap.Round),
+                style = Stroke(width = xThickStroke, cap = StrokeCap.Round),
                 brush = indicatorBrush,
                 size = Size(size.width, size.height),
                 topLeft = Offset(0f, 0f)
@@ -88,7 +90,7 @@ fun CircularScoreIndicator(
             drawCircle(
                 color = outlineColor,
                 radius = (size.width / 2) + 20f,
-                style = Stroke(width = 5f),
+                style = Stroke(width = thinStroke),
             )
         }
 

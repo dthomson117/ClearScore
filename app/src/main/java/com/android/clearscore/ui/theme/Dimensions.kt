@@ -17,3 +17,8 @@ val buttonTextSize = 20.sp
 val subTitleTextSize = 24.sp
 val titleTextSize = 32.sp
 val xlText = 64.sp
+
+val thinStroke = 5f
+val xThickStroke = 20f
+
+val creditScoreSize = 200.dp
