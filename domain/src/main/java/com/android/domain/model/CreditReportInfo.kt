@@ -5,6 +5,14 @@ data class CreditReportInfo(
     val maxScoreValue: Int,
     val minScoreValue: Int,
 ) {
+    fun getScorePercentage(): Float {
+        return if (maxScoreValue == 0) {
+            1f
+        } else {
+            score.toFloat() / maxScoreValue
+        }
+    }
+
     companion object {
         fun default() = CreditReportInfo(
             score = 0,
