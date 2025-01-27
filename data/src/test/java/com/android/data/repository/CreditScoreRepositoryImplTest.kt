@@ -46,15 +46,18 @@ class CreditScoreRepositoryImplTest {
                 CreditScoreJson.default()
             )
 
+
             sut.creditScore.test {
+                val initialState = awaitItem()
                 sut.getCreditScore()
+
                 val firstResult = awaitItem()
                 val secondResult = awaitItem()
 
+                expectThat(initialState).isA<RepositoryResult.Loading<*>>()
                 expectThat(firstResult).isA<RepositoryResult.Loading<*>>()
                 expectThat(secondResult).isA<RepositoryResult.Success<*>>()
                 expectThat(secondResult).isEqualTo(RepositoryResult.Success(CreditScore.default()))
-                awaitComplete()
             }
         }
     }
@@ -68,13 +71,15 @@ class CreditScoreRepositoryImplTest {
                     ApiResult.ApiError.EmptyResponse
 
             sut.creditScore.test {
+                val initialState = awaitItem()
                 sut.getCreditScore()
+
                 val firstResult = awaitItem()
                 val secondResult = awaitItem()
 
+                expectThat(initialState).isA<RepositoryResult.Loading<*>>()
                 expectThat(firstResult).isA<RepositoryResult.Loading<*>>()
                 expectThat(secondResult).isA<RepositoryResult.Error<*>>()
-                awaitComplete()
             }
         }
     }
@@ -88,11 +93,13 @@ class CreditScoreRepositoryImplTest {
                     ApiResult.ApiError.ResponseError("Error")
 
             sut.creditScore.test {
+                val initialState = awaitItem()
                 sut.getCreditScore()
 
                 val firstResult = awaitItem()
                 val secondResult = awaitItem()
 
+                expectThat(initialState).isA<RepositoryResult.Loading<*>>()
                 expectThat(firstResult).isA<RepositoryResult.Loading<*>>()
                 expectThat(secondResult).isA<RepositoryResult.Error<*>>()
             }
@@ -108,13 +115,15 @@ class CreditScoreRepositoryImplTest {
                     ApiResult.ApiError.IOError("Error")
 
             sut.creditScore.test {
+                val initialState = awaitItem()
                 sut.getCreditScore()
+
                 val firstResult = awaitItem()
                 val secondResult = awaitItem()
 
+                expectThat(initialState).isA<RepositoryResult.Loading<*>>()
                 expectThat(firstResult).isA<RepositoryResult.Loading<*>>()
                 expectThat(secondResult).isA<RepositoryResult.Error<*>>()
-                awaitComplete()
             }
         }
     }
@@ -129,14 +138,15 @@ class CreditScoreRepositoryImplTest {
 
 
             sut.creditScore.test {
+                val initialState = awaitItem()
                 sut.getCreditScore()
 
                 val firstResult = awaitItem()
                 val secondResult = awaitItem()
 
+                expectThat(initialState).isA<RepositoryResult.Loading<*>>()
                 expectThat(firstResult).isA<RepositoryResult.Loading<*>>()
                 expectThat(secondResult).isA<RepositoryResult.Error<*>>()
-                awaitComplete()
             }
         }
     }
