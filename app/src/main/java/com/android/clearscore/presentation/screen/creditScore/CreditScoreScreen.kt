@@ -24,9 +24,11 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.graphics.drawscope.inset
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.android.clearscore.presentation.common.ScreenLoading
+import com.android.clearscore.ui.theme.creditScoreInset
 import com.android.clearscore.ui.theme.creditScoreSize
 import com.android.clearscore.ui.theme.progressBrush
 import com.android.clearscore.ui.theme.thinStroke
@@ -77,40 +79,42 @@ fun CircularScoreIndicator(
         modifier = modifier.size(creditScoreSize)
     ) {
         Canvas(modifier = Modifier.fillMaxSize()) {
-            // Track
-            drawArc(
-                startAngle = -60f,
-                sweepAngle = 300f,
-                useCenter = false,
-                style = Stroke(width = xThickStroke, cap = StrokeCap.Round),
-                color = trackColor,
-                size = Size(size.width, size.height),
-                topLeft = Offset(0f, 0f)
-            )
-
-            // Progress Arc
-            drawArc(
-                startAngle = -60f,
-                sweepAngle = 300f * (scoreAnimation.value * creditReportInfo.getScorePercentage()),
-                useCenter = false,
-                style = Stroke(width = xThickStroke, cap = StrokeCap.Round),
-                brush = indicatorBrush,
-                size = Size(size.width, size.height),
-                topLeft = Offset(0f, 0f)
-            )
-
-            // Outline
-            if (outlineVisible) {
-                drawCircle(
-                    color = outlineColor,
-                    radius = (size.width / 2) + 20f,
-                    style = Stroke(width = thinStroke),
+            inset(horizontal = creditScoreInset, vertical = creditScoreInset) {
+                // Track
+                drawArc(
+                    startAngle = -60f,
+                    sweepAngle = 300f,
+                    useCenter = false,
+                    style = Stroke(width = xThickStroke, cap = StrokeCap.Round),
+                    color = trackColor,
+                    size = Size(size.width, size.height),
+                    topLeft = Offset(0f, 0f)
                 )
+
+                // Progress Arc
+                drawArc(
+                    startAngle = -60f,
+                    sweepAngle = 300f * (scoreAnimation.value * creditReportInfo.getScorePercentage()),
+                    useCenter = false,
+                    style = Stroke(width = xThickStroke, cap = StrokeCap.Round),
+                    brush = indicatorBrush,
+                    size = Size(size.width, size.height),
+                    topLeft = Offset(0f, 0f)
+                )
+
+                // Outline
+                if (outlineVisible) {
+                    drawCircle(
+                        color = outlineColor,
+                        radius = (size.width / 2) + 20f,
+                        style = Stroke(width = thinStroke),
+                    )
+                }
             }
         }
 
         val animatedScoreColor by animateColorAsState(
-            when (scoreAnimation.value) {
+            targetValue = when (scoreAnimation.value) {
                 in 0.0..0.25 -> Color.Red
                 in 0.25..0.5 -> Color.Yellow
                 else -> Color.Green

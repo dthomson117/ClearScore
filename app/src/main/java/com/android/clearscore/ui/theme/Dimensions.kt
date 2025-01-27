@@ -21,4 +21,5 @@ val xlText = 64.sp
 val thinStroke = 5f
 val xThickStroke = 20f
 
-val creditScoreSize = 200.dp
+val creditScoreSize = 250.dp
+val creditScoreInset = 20f
