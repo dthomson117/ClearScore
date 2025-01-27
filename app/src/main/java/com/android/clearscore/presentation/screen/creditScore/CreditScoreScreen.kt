@@ -95,9 +95,10 @@ fun CircularScoreIndicator(
                 )
 
                 // Progress Arc
+                val progress = 300f * (scoreAnimation.value * creditReportInfo.getScorePercentage())
                 drawArc(
                     startAngle = -60f,
-                    sweepAngle = 300f * (scoreAnimation.value * creditReportInfo.getScorePercentage()),
+                    sweepAngle = progress,
                     useCenter = false,
                     style = Stroke(width = xThickStroke, cap = StrokeCap.Round),
                     brush = indicatorBrush,

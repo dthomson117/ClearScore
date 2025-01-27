@@ -16,9 +16,7 @@ class CreditScoreViewModel(
 
     fun handleUiEvent(event: CreditScoreUiEvent) {
         when (event) {
-            else -> {
-                // TODO: Add UI Events i.e. refresh
-            }
+            is CreditScoreUiEvent.Refresh -> viewModelScope.launch { }
         }
     }
 
@@ -26,10 +24,11 @@ class CreditScoreViewModel(
         creditScoreRepository.getCreditScore().collect { creditScore ->
             when (creditScore) {
                 is RepositoryResult.Loading -> setState { copy(loading = true) }
-                is RepositoryResult.Error -> setState { copy(loading = false) }
+                is RepositoryResult.Error -> setState { copy(loading = false, error = true) }
                 is RepositoryResult.Success -> setState {
                     copy(
                         creditScore = creditScore.data,
+                        error = false,
                         loading = false
                     )
                 }
@@ -38,9 +37,12 @@ class CreditScoreViewModel(
     }
 }
 
-sealed interface CreditScoreUiEvent
+sealed interface CreditScoreUiEvent {
+    data object Refresh : CreditScoreUiEvent
+}
 
 data class CreditScoreViewModelState(
     val loading: Boolean = true,
+    val error: Boolean = false,
     val creditScore: CreditScore = CreditScore.default()
 )
