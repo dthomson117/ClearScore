@@ -11,7 +11,9 @@ import org.junit.runner.Description
 
 /**
  * Helper class for testing coroutines
+ * https://medium.com/@kacper.wojciechowski/kotlin-unit-testing-guide-part-3-coroutines-8f740bfb5e4c
  */
+@Suppress("MemberVisibilityCanBePrivate")
 class TestCoroutineRule(
     val dispatcher: TestDispatcher = StandardTestDispatcher(),
 ) : TestWatcher() {

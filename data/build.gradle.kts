@@ -27,9 +27,20 @@ android {
                 "proguard-rules.pro"
             )
         }
+        debug {
+            isMinifyEnabled = false
+        }
     }
+
     kotlinOptions {
         jvmTarget = "17"
+    }
+
+    packaging {
+        resources {
+            excludes.add("META-INF/LICENSE.md")
+            excludes.add("META-INF/LICENSE-notice.md")
+        }
     }
 }
 
@@ -44,11 +55,21 @@ dependencies {
     implementation(libs.moshi.kotlin)
     implementation(libs.converter.moshi)
     implementation(project(":domain"))
+    implementation(project(":common_kotlin"))
 
     testImplementation(libs.junit)
     testImplementation(libs.mockk)
     testImplementation(libs.strikt.core)
     testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.turbine)
+    testImplementation(project(":common_kotlin"))
 
     androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.mockk)
+    androidTestImplementation(libs.junit)
+    androidTestImplementation(libs.kotlinx.coroutines.test)
+    androidTestImplementation(libs.androidx.runner)
+    androidTestImplementation(libs.mockwebserver)
+    androidTestImplementation(libs.androidx.rules)
+    androidTestImplementation(libs.strikt.core)
 }

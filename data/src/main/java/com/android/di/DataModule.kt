@@ -1,12 +1,13 @@
 package com.android.di
 
+import androidx.annotation.VisibleForTesting
 import com.android.data.api.ApiCallHandler
 import com.android.data.api.AppApi
 import com.android.data.api.AppApi.Companion.BASE_URL
 import com.android.data.mapper.CreditReportInfoMapper
 import com.android.data.mapper.CreditScoreMapper
 import com.android.data.repository.CreditScoreRepositoryImpl
-import com.android.data.source.CreditScoreRemoteDataSource
+import com.android.data.source.creditScore.CreditScoreRemoteDataSource
 import com.android.domain.repository.CreditScoreRepository
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -38,16 +39,18 @@ val dataModule = module {
     single { CreditScoreRemoteDataSource(appApi = get(), apiCallHandler = get()) }
 }
 
-private fun buildRetrofitInstance(client: OkHttpClient): AppApi {
+@VisibleForTesting
+fun buildRetrofitInstance(client: OkHttpClient, baseUrl: String = BASE_URL): AppApi {
     return Retrofit.Builder()
         .client(client)
-        .baseUrl(BASE_URL)
+        .baseUrl(baseUrl)
         .addConverterFactory(MoshiConverterFactory.create(buildMoshi()))
         .build()
         .create(AppApi::class.java)
 }
 
-private fun buildOkHttpClient(): OkHttpClient {
+@VisibleForTesting
+fun buildOkHttpClient(): OkHttpClient {
     return OkHttpClient.Builder()
         .retryOnConnectionFailure(true)
         .connectTimeout(30, TimeUnit.SECONDS)
@@ -56,6 +59,7 @@ private fun buildOkHttpClient(): OkHttpClient {
         .build()
 }
 
-private fun buildMoshi(): Moshi = Moshi.Builder()
+@VisibleForTesting
+fun buildMoshi(): Moshi = Moshi.Builder()
     .addLast(KotlinJsonAdapterFactory())
     .build()
