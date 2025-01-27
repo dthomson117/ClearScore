@@ -6,7 +6,7 @@ import com.android.data.api.AppApi
 import com.android.data.model.CoachingSummaryJson
 import com.android.data.model.CreditReportInfoJson
 import com.android.data.model.CreditScoreJson
-import com.android.data.source.creditScore.CreditScoreRemoteDataSource
+import com.android.data.source.creditScore.CreditScoreRemoteDataSourceImpl
 import com.android.di.buildRetrofitInstance
 import com.clearscore.common_kotlin.TestCoroutineRule
 import kotlinx.coroutines.test.runTest
@@ -24,12 +24,12 @@ import java.io.EOFException
 import java.net.HttpURLConnection
 import java.net.SocketTimeoutException
 
-class CreditScoreRemoteDataSourceTest {
+class CreditScoreRemoteDataSourceImplTest {
     @get:Rule
     val testCoroutineRule = TestCoroutineRule()
 
     private lateinit var mockWebServer: MockWebServer
-    private lateinit var creditScoreRemoteDataSource: CreditScoreRemoteDataSource
+    private lateinit var creditScoreRemoteDataSource: CreditScoreRemoteDataSourceImpl
     private lateinit var appApi: AppApi
     private lateinit var okHttpClient: OkHttpClient
 
@@ -42,7 +42,7 @@ class CreditScoreRemoteDataSourceTest {
         okHttpClient = OkHttpClient.Builder().build()
         appApi = buildRetrofitInstance(okHttpClient, mockWebServer.url("/").toString())
 
-        creditScoreRemoteDataSource = CreditScoreRemoteDataSource(appApi, apiCallHandler)
+        creditScoreRemoteDataSource = CreditScoreRemoteDataSourceImpl(appApi, apiCallHandler)
     }
 
     @After
@@ -75,7 +75,7 @@ class CreditScoreRemoteDataSourceTest {
 
             val result = creditScoreRemoteDataSource.getCreditScore()
 
-            expectThat(result).isA< ApiResult.ApiError.ResponseError>().and {
+            expectThat(result).isA<ApiResult.ApiError.ResponseError>().and {
                 get { cause }.isEqualTo(null)
             }
         }
@@ -91,7 +91,7 @@ class CreditScoreRemoteDataSourceTest {
 
             val result = creditScoreRemoteDataSource.getCreditScore()
 
-            expectThat(result).isA< ApiResult.ApiError.IOError>()
+            expectThat(result).isA<ApiResult.ApiError.IOError>()
         }
     }
 
@@ -100,7 +100,7 @@ class CreditScoreRemoteDataSourceTest {
         runTest {
             val result = creditScoreRemoteDataSource.getCreditScore()
 
-            expectThat(result).isA< ApiResult.ApiError.HttpError>()
+            expectThat(result).isA<ApiResult.ApiError.HttpError>()
         }
     }
 
