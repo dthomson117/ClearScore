@@ -7,22 +7,25 @@ import com.android.domain.repository.CreditScoreRepository
 import com.android.domain.repository.RepositoryResult
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 
-/**
- * Implementation of [CreditScoreRepository], exposes Credit Score operations to the domain layer
- * Shortcut - Would have implemented a local data source to cache data, such as Room
- */
+
 class CreditScoreRepositoryImpl(
     private val creditScoreRemoteDataSource: CreditScoreRemoteDataSource,
     private val creditScoreMapper: CreditScoreMapper,
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : CreditScoreRepository {
-    override suspend fun getCreditScore(): Flow<RepositoryResult<CreditScore>> {
-        return apiCallToRepositoryResult(
+    private val _creditScore =
+        MutableStateFlow<RepositoryResult<CreditScore>>(RepositoryResult.Loading())
+    override val creditScore: StateFlow<RepositoryResult<CreditScore>> = _creditScore.asStateFlow()
+
+    override suspend fun getCreditScore() {
+        apiCallToRepositoryResult(
             apiCall = { creditScoreRemoteDataSource.getCreditScore() },
             mapper = { creditScoreMapper.toDomain(it) },
             dispatcher = dispatcher
-        )
+        ).collect { result -> _creditScore.emit(result) }
     }
 }

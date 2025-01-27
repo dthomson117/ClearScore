@@ -8,6 +8,7 @@ import com.android.data.mapper.CreditReportInfoMapper
 import com.android.data.mapper.CreditScoreMapper
 import com.android.data.repository.CreditScoreRepositoryImpl
 import com.android.data.source.creditScore.CreditScoreRemoteDataSource
+import com.android.data.source.creditScore.CreditScoreRemoteDataSourceImpl
 import com.android.domain.repository.CreditScoreRepository
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -36,7 +37,12 @@ val dataModule = module {
     }
 
     // Data Source
-    single { CreditScoreRemoteDataSource(appApi = get(), apiCallHandler = get()) }
+    single<CreditScoreRemoteDataSource> {
+        CreditScoreRemoteDataSourceImpl(
+            appApi = get(),
+            apiCallHandler = get()
+        )
+    }
 }
 
 @VisibleForTesting

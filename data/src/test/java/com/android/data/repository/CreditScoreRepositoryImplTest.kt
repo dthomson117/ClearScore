@@ -40,10 +40,14 @@ class CreditScoreRepositoryImplTest {
     @Test
     fun `getCreditScore SHOULD return Loading and then CreditScore WHEN ApiResult is Success`() {
         runTest {
-            every { creditScoreMapper.toDomain(CreditScoreJson.default()) } returns CreditScore.default()
-            coEvery { creditScoreRemoteDataSource.getCreditScore() } returns ApiResult.Success(CreditScoreJson.default())
+            every { creditScoreMapper.toDomain(CreditScoreJson.default()) } returns
+                    CreditScore.default()
+            coEvery { creditScoreRemoteDataSource.getCreditScore() } returns ApiResult.Success(
+                CreditScoreJson.default()
+            )
 
-            sut.getCreditScore().test {
+            sut.creditScore.test {
+                sut.getCreditScore()
                 val firstResult = awaitItem()
                 val secondResult = awaitItem()
 
@@ -58,10 +62,13 @@ class CreditScoreRepositoryImplTest {
     @Test
     fun `getCreditScore SHOULD return Loading and then Error WHEN ApiResult is EmptyResponse`() {
         runTest {
-            every { creditScoreMapper.toDomain(CreditScoreJson.default()) } returns CreditScore.default()
-            coEvery { creditScoreRemoteDataSource.getCreditScore() } returns ApiResult.ApiError.EmptyResponse
+            every { creditScoreMapper.toDomain(CreditScoreJson.default()) } returns
+                    CreditScore.default()
+            coEvery { creditScoreRemoteDataSource.getCreditScore() } returns
+                    ApiResult.ApiError.EmptyResponse
 
-            sut.getCreditScore().test {
+            sut.creditScore.test {
+                sut.getCreditScore()
                 val firstResult = awaitItem()
                 val secondResult = awaitItem()
 
@@ -75,16 +82,19 @@ class CreditScoreRepositoryImplTest {
     @Test
     fun `getCreditScore SHOULD return Loading and then Error WHEN ApiResult is ResponseError`() {
         runTest {
-            every { creditScoreMapper.toDomain(CreditScoreJson.default()) } returns CreditScore.default()
-            coEvery { creditScoreRemoteDataSource.getCreditScore() } returns ApiResult.ApiError.ResponseError("Error")
+            every { creditScoreMapper.toDomain(CreditScoreJson.default()) } returns
+                    CreditScore.default()
+            coEvery { creditScoreRemoteDataSource.getCreditScore() } returns
+                    ApiResult.ApiError.ResponseError("Error")
 
-            sut.getCreditScore().test {
+            sut.creditScore.test {
+                sut.getCreditScore()
+
                 val firstResult = awaitItem()
                 val secondResult = awaitItem()
 
                 expectThat(firstResult).isA<RepositoryResult.Loading<*>>()
                 expectThat(secondResult).isA<RepositoryResult.Error<*>>()
-                awaitComplete()
             }
         }
     }
@@ -92,10 +102,13 @@ class CreditScoreRepositoryImplTest {
     @Test
     fun `getCreditScore SHOULD return Loading and then Error WHEN ApiResult is IOError`() {
         runTest {
-            every { creditScoreMapper.toDomain(CreditScoreJson.default()) } returns CreditScore.default()
-            coEvery { creditScoreRemoteDataSource.getCreditScore() } returns ApiResult.ApiError.IOError("Error")
+            every { creditScoreMapper.toDomain(CreditScoreJson.default()) } returns
+                    CreditScore.default()
+            coEvery { creditScoreRemoteDataSource.getCreditScore() } returns
+                    ApiResult.ApiError.IOError("Error")
 
-            sut.getCreditScore().test {
+            sut.creditScore.test {
+                sut.getCreditScore()
                 val firstResult = awaitItem()
                 val secondResult = awaitItem()
 
@@ -109,10 +122,15 @@ class CreditScoreRepositoryImplTest {
     @Test
     fun `getCreditScore SHOULD return Loading and then Error WHEN ApiResult is HttpError`() {
         runTest {
-            every { creditScoreMapper.toDomain(CreditScoreJson.default()) } returns CreditScore.default()
-            coEvery { creditScoreRemoteDataSource.getCreditScore() } returns ApiResult.ApiError.HttpError(400, "Error")
+            every { creditScoreMapper.toDomain(CreditScoreJson.default()) } returns
+                    CreditScore.default()
+            coEvery { creditScoreRemoteDataSource.getCreditScore() } returns
+                    ApiResult.ApiError.HttpError(code = 400, message = "Error")
 
-            sut.getCreditScore().test {
+
+            sut.creditScore.test {
+                sut.getCreditScore()
+
                 val firstResult = awaitItem()
                 val secondResult = awaitItem()
 
