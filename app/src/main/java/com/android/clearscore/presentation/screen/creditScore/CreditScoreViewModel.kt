@@ -11,17 +11,20 @@ class CreditScoreViewModel(
     private val creditScoreRepository: CreditScoreRepository
 ) : BaseViewModel<CreditScoreViewModelState>(CreditScoreViewModelState()) {
     init {
-        viewModelScope.launch { getCreditScore() }
+        viewModelScope.launch { creditScoreRepository.getCreditScore() }
+        viewModelScope.launch { creditScoreListener() }
     }
 
     fun handleUiEvent(event: CreditScoreUiEvent) {
         when (event) {
-            is CreditScoreUiEvent.Refresh -> viewModelScope.launch { }
+            is CreditScoreUiEvent.Refresh -> viewModelScope.launch {
+                creditScoreRepository.getCreditScore()
+            }
         }
     }
 
-    private suspend fun getCreditScore() {
-        creditScoreRepository.getCreditScore().collect { creditScore ->
+    private suspend fun creditScoreListener() {
+        creditScoreRepository.creditScore.collect { creditScore ->
             when (creditScore) {
                 is RepositoryResult.Loading -> setState { copy(loading = true) }
                 is RepositoryResult.Error -> setState { copy(loading = false, error = true) }
