@@ -60,7 +60,9 @@ fun CircularScoreIndicator(
     creditReportInfo: CreditReportInfo,
     modifier: Modifier = Modifier,
     indicatorBrush: Brush = progressBrush,
-    outlineColor: Color = Color.Transparent,
+    trackColor: Color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f),
+    outlineVisible: Boolean = false,
+    outlineColor: Color = MaterialTheme.colorScheme.surfaceVariant,
 ) {
     val scoreAnimation = remember { Animatable(0f) }
     LaunchedEffect(scoreAnimation) {
@@ -75,6 +77,17 @@ fun CircularScoreIndicator(
         modifier = modifier.size(creditScoreSize)
     ) {
         Canvas(modifier = Modifier.fillMaxSize()) {
+            // Track
+            drawArc(
+                startAngle = -60f,
+                sweepAngle = 300f,
+                useCenter = false,
+                style = Stroke(width = xThickStroke, cap = StrokeCap.Round),
+                color = trackColor,
+                size = Size(size.width, size.height),
+                topLeft = Offset(0f, 0f)
+            )
+
             // Progress Arc
             drawArc(
                 startAngle = -60f,
@@ -87,11 +100,13 @@ fun CircularScoreIndicator(
             )
 
             // Outline
-            drawCircle(
-                color = outlineColor,
-                radius = (size.width / 2) + 20f,
-                style = Stroke(width = thinStroke),
-            )
+            if (outlineVisible) {
+                drawCircle(
+                    color = outlineColor,
+                    radius = (size.width / 2) + 20f,
+                    style = Stroke(width = thinStroke),
+                )
+            }
         }
 
         val animatedScoreColor by animateColorAsState(

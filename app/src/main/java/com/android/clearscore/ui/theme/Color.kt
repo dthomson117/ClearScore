@@ -16,7 +16,7 @@ val progressBrush: Brush =
     Brush.sweepGradient(
         0f to Color.Yellow,
         .2f to Color.Yellow,
-        .5f to Color.Green,
+        .6f to Color.Green,
         .74f to Color.Green,
         .76f to Color.Red,
         .9f to Color.Red,
