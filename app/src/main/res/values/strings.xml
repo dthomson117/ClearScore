@@ -2,4 +2,6 @@
     <string name="app_name">ClearScore</string>
     <string name="credit_score_indicator_top">Your credit score is</string>
     <string name="credit_score_indicator_bottom">out of %1$s</string>
+    <string name="loadingindicator">LoadingIndicator</string>
+    <string name="creditscoreindicator">CreditScoreIndicator</string>
 </resources>

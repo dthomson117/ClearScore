@@ -54,10 +54,10 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.koin.android)
     implementation(libs.napier)
-    implementation(project(":data")) // Is there a way to avoid this with Koin?
-    implementation(project(":domain"))
     implementation(libs.androidx.navigation.runtime.ktx)
     implementation(libs.androidx.navigation.compose)
+    implementation(project(":data")) // Is there a way to avoid this with Koin?
+    implementation(project(":domain"))
 
     testImplementation(libs.junit)
     testImplementation(libs.mockk)
@@ -67,7 +67,9 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.ui.test.junit4)
+    androidTestImplementation(libs.ui.test.junit4)
 
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+    debugImplementation(libs.ui.test.manifest)
 }
