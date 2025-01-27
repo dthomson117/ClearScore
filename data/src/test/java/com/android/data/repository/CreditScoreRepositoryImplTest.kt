@@ -4,7 +4,7 @@ import app.cash.turbine.test
 import com.android.data.api.ApiResult
 import com.android.data.mapper.CreditScoreMapper
 import com.android.data.model.CreditScoreJson
-import com.android.data.source.CreditScoreRemoteDataSource
+import com.android.data.source.creditScore.CreditScoreRemoteDataSource
 import com.android.domain.model.CreditScore
 import com.android.domain.repository.RepositoryResult
 import com.clearscore.common_kotlin.TestCoroutineRule

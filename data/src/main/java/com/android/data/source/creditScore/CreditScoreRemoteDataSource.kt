@@ -1,4 +1,4 @@
-package com.android.data.source
+package com.android.data.source.creditScore
 
 import com.android.data.api.ApiCallHandler
 import com.android.data.api.ApiResult

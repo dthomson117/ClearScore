@@ -1,7 +1,7 @@
 package com.android.data.repository
 
 import com.android.data.mapper.CreditScoreMapper
-import com.android.data.source.CreditScoreRemoteDataSource
+import com.android.data.source.creditScore.CreditScoreRemoteDataSource
 import com.android.domain.model.CreditScore
 import com.android.domain.repository.CreditScoreRepository
 import com.android.domain.repository.RepositoryResult

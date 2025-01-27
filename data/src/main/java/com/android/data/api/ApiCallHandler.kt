@@ -1,9 +1,11 @@
 package com.android.data.api
 
+import com.squareup.moshi.JsonDataException
 import io.github.aakira.napier.Napier
 import retrofit2.HttpException
 import retrofit2.Response
 import java.io.IOException
+import java.net.SocketTimeoutException
 
 /**
  * Provides a generic way to handle API calls and their results
@@ -26,6 +28,9 @@ class ApiCallHandler {
             } catch (e: HttpException) {
                 Napier.e(e.message.toString(), e)
                 ApiResult.ApiError.HttpError(e.code(), e.message())
+            } catch (e: JsonDataException) {
+                Napier.w("Invalid response: $response")
+                ApiResult.ApiError.ResponseError(response.message())
             }
         }
     }
