@@ -5,13 +5,18 @@ import io.github.aakira.napier.Napier
 import retrofit2.HttpException
 import retrofit2.Response
 import java.io.IOException
-import java.net.SocketTimeoutException
 
 /**
  * Provides a generic way to handle API calls and their results
  */
-class ApiCallHandler {
+class ApiCallHandler(
+    private val connectivityChecker: ConnectivityChecker
+) {
     suspend fun <T> safeApiCall(apiCall: suspend () -> Response<T>): ApiResult<T> {
+        if (!connectivityChecker.checkConnectivity()) {
+            return ApiResult.ApiError.ResponseError("No internet connection")
+        }
+
         apiCall().let { response ->
             return try {
                 if (response.isSuccessful) {
