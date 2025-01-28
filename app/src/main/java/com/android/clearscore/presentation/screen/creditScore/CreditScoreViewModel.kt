@@ -5,14 +5,17 @@ import com.android.clearscore.common.BaseViewModel
 import com.android.domain.model.CreditScore
 import com.android.domain.repository.CreditScoreRepository
 import com.android.domain.repository.RepositoryResult
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 class CreditScoreViewModel(
-    private val creditScoreRepository: CreditScoreRepository
+    private val creditScoreRepository: CreditScoreRepository,
 ) : BaseViewModel<CreditScoreViewModelState>(CreditScoreViewModelState()) {
     init {
-        viewModelScope.launch { creditScoreRepository.getCreditScore() }
-        viewModelScope.launch { creditScoreListener() }
+        viewModelScope.launch {
+            creditScoreRepository.getCreditScore()
+            startCreditScoreListener()
+        }
     }
 
     fun handleUiEvent(event: CreditScoreUiEvent) {
@@ -23,8 +26,8 @@ class CreditScoreViewModel(
         }
     }
 
-    private suspend fun creditScoreListener() {
-        creditScoreRepository.creditScore.collect { creditScore ->
+    private suspend fun startCreditScoreListener() {
+        creditScoreRepository.creditScore.collectLatest { creditScore ->
             when (creditScore) {
                 is RepositoryResult.Loading -> setState { copy(loading = true) }
                 is RepositoryResult.Error -> setState { copy(loading = false, error = true) }
@@ -47,5 +50,5 @@ sealed interface CreditScoreUiEvent {
 data class CreditScoreViewModelState(
     val loading: Boolean = true,
     val error: Boolean = false,
-    val creditScore: CreditScore = CreditScore.default()
+    val creditScore: CreditScore = CreditScore.default(),
 )

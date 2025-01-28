@@ -60,6 +60,8 @@ dependencies {
     testImplementation(libs.junit)
     testImplementation(libs.mockk)
     testImplementation(libs.strikt.core)
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(project(":common_kotlin"))
 
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
