@@ -9,11 +9,12 @@ kotlin {
 }
 
 android {
-    namespace = "com.example.data"
+    namespace = "com.android.data"
     compileSdk = 35
 
     defaultConfig {
         minSdk = 26
+        targetSdk = 35
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -26,9 +27,6 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-        }
-        debug {
-            isMinifyEnabled = false
         }
     }
 
