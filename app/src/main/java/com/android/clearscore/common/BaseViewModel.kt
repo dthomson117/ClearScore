@@ -6,8 +6,11 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 
+/**
+ * Helper class for view models to reduce boiler plate code
+ */
 abstract class BaseViewModel<T>(
-    viewModelState: T
+    viewModelState: T,
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(viewModelState)
     val uiState: StateFlow<T> = _uiState.asStateFlow()

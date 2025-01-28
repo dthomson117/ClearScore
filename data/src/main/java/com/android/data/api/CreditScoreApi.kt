@@ -7,7 +7,7 @@ import retrofit2.http.GET
 /**
  * Retrofit API for credit score
  */
-interface AppApi {
+interface CreditScoreApi {
 
     @GET(ENDPOINT)
     suspend fun getCreditScore(): Response<CreditScoreJson>

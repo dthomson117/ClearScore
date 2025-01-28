@@ -8,7 +8,7 @@ data class CoachingSummaryJson(
     val activeChat: Boolean,
     val numberOfTodoItems: Int,
     val numberOfCompletedTodoItems: Int,
-    val selected: Boolean
+    val selected: Boolean,
 ) {
     companion object {
         fun default() = CoachingSummaryJson(

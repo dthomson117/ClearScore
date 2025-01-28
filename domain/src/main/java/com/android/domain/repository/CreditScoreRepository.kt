@@ -9,6 +9,6 @@ import kotlinx.coroutines.flow.StateFlow
  */
 interface CreditScoreRepository {
     val creditScore: StateFlow<RepositoryResult<CreditScore>>
-    
+
     suspend fun getCreditScore()
 }

@@ -11,11 +11,10 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
-
 class CreditScoreRepositoryImpl(
     private val creditScoreRemoteDataSource: CreditScoreRemoteDataSource,
     private val creditScoreMapper: CreditScoreMapper,
-    private val dispatcher: CoroutineDispatcher = Dispatchers.IO
+    private val dispatcher: CoroutineDispatcher = Dispatchers.IO,
 ) : CreditScoreRepository {
     private val _creditScore =
         MutableStateFlow<RepositoryResult<CreditScore>>(RepositoryResult.Loading())

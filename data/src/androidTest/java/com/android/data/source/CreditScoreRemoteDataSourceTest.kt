@@ -2,8 +2,8 @@ package com.android.data.source
 
 import com.android.data.api.ApiCallHandler
 import com.android.data.api.ApiResult
-import com.android.data.api.AppApi
 import com.android.data.api.ConnectivityChecker
+import com.android.data.api.CreditScoreApi
 import com.android.data.model.CoachingSummaryJson
 import com.android.data.model.CreditReportInfoJson
 import com.android.data.model.CreditScoreJson
@@ -35,7 +35,7 @@ class CreditScoreRemoteDataSourceImplTest {
 
     private lateinit var mockWebServer: MockWebServer
     private lateinit var creditScoreRemoteDataSource: CreditScoreRemoteDataSourceImpl
-    private lateinit var appApi: AppApi
+    private lateinit var creditScoreApi: CreditScoreApi
     private lateinit var okHttpClient: OkHttpClient
 
     private val sut = ApiCallHandler(connectivityChecker = connectivityChecker)
@@ -46,13 +46,13 @@ class CreditScoreRemoteDataSourceImplTest {
         mockWebServer.start()
         okHttpClient = OkHttpClient.Builder().build()
 
-        appApi = buildRetrofitInstance(
+        creditScoreApi = buildRetrofitInstance(
             client = okHttpClient,
             baseUrl = mockWebServer.url("/").toString()
         )
 
         creditScoreRemoteDataSource = CreditScoreRemoteDataSourceImpl(
-            appApi = appApi,
+            creditScoreApi = creditScoreApi,
             apiCallHandler = sut
         )
     }

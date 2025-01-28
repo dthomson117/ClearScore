@@ -31,7 +31,7 @@ data class CreditReportInfoJson(
     val numNegativeScoreFactors: Int,
     val equifaxScoreBand: Int,
     val equifaxScoreBandDescription: String,
-    val daysUntilNextReport: Int
+    val daysUntilNextReport: Int,
 ) {
     companion object {
         fun default() = CreditReportInfoJson(

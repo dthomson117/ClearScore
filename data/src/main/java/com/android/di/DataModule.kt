@@ -2,9 +2,9 @@ package com.android.di
 
 import android.net.ConnectivityManager
 import com.android.data.api.ApiCallHandler
-import com.android.data.api.AppApi
-import com.android.data.api.AppApi.Companion.BASE_URL
 import com.android.data.api.ConnectivityChecker
+import com.android.data.api.CreditScoreApi
+import com.android.data.api.CreditScoreApi.Companion.BASE_URL
 import com.android.data.mapper.CreditReportInfoMapper
 import com.android.data.mapper.CreditScoreMapper
 import com.android.data.repository.CreditScoreRepositoryImpl
@@ -23,7 +23,7 @@ import java.util.concurrent.TimeUnit
 val dataModule = module {
     // Api
     single<OkHttpClient> { buildOkHttpClient() }
-    single<AppApi> { buildRetrofitInstance(client = get()) }
+    single<CreditScoreApi> { buildRetrofitInstance(client = get()) }
     factory { ApiCallHandler(connectivityChecker = get()) }
     factory {
         ConnectivityChecker(
@@ -48,19 +48,19 @@ val dataModule = module {
     // Data Source
     single<CreditScoreRemoteDataSource> {
         CreditScoreRemoteDataSourceImpl(
-            appApi = get(),
+            creditScoreApi = get(),
             apiCallHandler = get()
         )
     }
 }
 
-fun buildRetrofitInstance(client: OkHttpClient, baseUrl: String = BASE_URL): AppApi {
+fun buildRetrofitInstance(client: OkHttpClient, baseUrl: String = BASE_URL): CreditScoreApi {
     return Retrofit.Builder()
         .client(client)
         .baseUrl(baseUrl)
         .addConverterFactory(MoshiConverterFactory.create(buildMoshi()))
         .build()
-        .create(AppApi::class.java)
+        .create(CreditScoreApi::class.java)
 }
 
 fun buildOkHttpClient(): OkHttpClient {
