@@ -10,7 +10,7 @@ import java.io.IOException
  * Provides a generic way to handle API calls and their results
  */
 class ApiCallHandler(
-    private val connectivityChecker: ConnectivityChecker
+    private val connectivityChecker: ConnectivityChecker,
 ) {
     suspend fun <T> safeApiCall(apiCall: suspend () -> Response<T>): ApiResult<T> {
         if (!connectivityChecker.checkConnectivity()) {

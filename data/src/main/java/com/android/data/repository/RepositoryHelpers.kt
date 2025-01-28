@@ -15,7 +15,7 @@ import kotlinx.coroutines.flow.flowOn
 fun <ApiData, DomainData> apiCallToRepositoryResult(
     apiCall: suspend () -> ApiResult<ApiData>,
     mapper: (ApiData) -> DomainData,
-    dispatcher: CoroutineDispatcher = Dispatchers.IO
+    dispatcher: CoroutineDispatcher = Dispatchers.IO,
 ): Flow<RepositoryResult<DomainData>> = flow {
     emit(RepositoryResult.Loading())
 

@@ -1,7 +1,7 @@
 package com.android.domain.model
 
 data class CreditScore(
-    val creditReportInfo: CreditReportInfo
+    val creditReportInfo: CreditReportInfo,
 ) {
     companion object {
         fun default() = CreditScore(

@@ -5,7 +5,7 @@ import android.net.NetworkCapabilities
 
 
 class ConnectivityChecker(
-    private val connectivityManager: ConnectivityManager
+    private val connectivityManager: ConnectivityManager,
 ) {
     fun checkConnectivity(): Boolean {
         val network = connectivityManager.activeNetwork ?: return false

@@ -32,7 +32,7 @@ class CreditScoreMapperTest {
     )
 
     private val creditReportInfoJson = CreditReportInfoJson(
-        score= 300,
+        score = 300,
         scoreBand = 4,
         clientRef = "CS-SED-655426-708782",
         status = "MATCH",
