@@ -1,17 +1,23 @@
 package com.android.data.api
 
+import android.net.ConnectivityManager
 import com.squareup.moshi.JsonDataException
 import io.github.aakira.napier.Napier
 import retrofit2.HttpException
 import retrofit2.Response
 import java.io.IOException
-import java.net.SocketTimeoutException
 
 /**
  * Provides a generic way to handle API calls and their results
  */
-class ApiCallHandler {
+class ApiCallHandler(
+    private val connectivityManager: ConnectivityManager
+) {
     suspend fun <T> safeApiCall(apiCall: suspend () -> Response<T>): ApiResult<T> {
+        if (connectivityManager.activeNetwork == null) {
+            return ApiResult.ApiError.IOError("No connection")
+        }
+
         apiCall().let { response ->
             return try {
                 if (response.isSuccessful) {

@@ -7,7 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.clearscore.R
+import com.android.clearscore.R
 
 @Composable
 fun ScreenLoading(modifier: Modifier = Modifier) {

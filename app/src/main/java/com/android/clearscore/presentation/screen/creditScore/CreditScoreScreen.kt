@@ -8,8 +8,13 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Refresh
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -28,6 +33,7 @@ import androidx.compose.ui.graphics.drawscope.inset
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import com.android.clearscore.R
 import com.android.clearscore.presentation.common.ScreenLoading
 import com.android.clearscore.ui.theme.creditScoreInset
 import com.android.clearscore.ui.theme.creditScoreSize
@@ -36,7 +42,6 @@ import com.android.clearscore.ui.theme.thinStroke
 import com.android.clearscore.ui.theme.xThickStroke
 import com.android.clearscore.ui.theme.xlText
 import com.android.domain.model.CreditReportInfo
-import com.example.clearscore.R
 import kotlin.math.roundToInt
 
 @Composable
@@ -52,7 +57,12 @@ fun CreditScoreScreen(
             if (it) {
                 ScreenLoading(modifier = Modifier.size(creditScoreSize))
             } else {
-                CircularScoreIndicator(uiState.creditScore.creditReportInfo)
+                Column {
+                    CircularScoreIndicator(uiState.creditScore.creditReportInfo)
+                    if (uiState.error) {
+                        CreditScoreError(handleUiEvent = handleUiEvent)
+                    }
+                }
             }
         }
     }
@@ -118,7 +128,7 @@ fun CircularScoreIndicator(
         }
 
         val animatedScoreColor by animateColorAsState(
-            targetValue = when (scoreAnimation.value) {
+            targetValue = when (scoreAnimation.value * creditReportInfo.getScorePercentage()) {
                 in 0.0..0.25 -> Color.Red
                 in 0.25..0.5 -> Color.Yellow
                 else -> Color.Green
@@ -164,6 +174,30 @@ fun CreditScoreText(
     }
 }
 
+@Composable
+fun CreditScoreError(
+    color: Color = MaterialTheme.colorScheme.onSurface,
+    handleUiEvent: (CreditScoreUiEvent) -> Unit
+) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(
+            text = stringResource(R.string.error_credit_score),
+            color = color
+        )
+        IconButton(
+            onClick = { handleUiEvent(CreditScoreUiEvent.Refresh) }
+        ) {
+            Icon(
+                imageVector = Icons.Default.Refresh,
+                tint = color,
+                contentDescription = stringResource(R.string.refresh_cd)
+            )
+        }
+    }
+}
+
 @Preview
 @Composable
 fun PreviewScoreIndicator() {
@@ -175,4 +209,10 @@ fun PreviewScoreIndicator() {
     CircularScoreIndicator(
         creditReportInfo = creditReportInfo
     )
+}
+
+@Preview
+@Composable
+fun PreviewError() {
+    CreditScoreError(handleUiEvent = {})
 }

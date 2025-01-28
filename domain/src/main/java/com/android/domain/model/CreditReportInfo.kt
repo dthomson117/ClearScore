@@ -7,7 +7,7 @@ data class CreditReportInfo(
 ) {
     fun getScorePercentage(): Float {
         return if (maxScoreValue == 0) {
-            1f
+            0f
         } else {
             score.toFloat() / maxScoreValue
         }
