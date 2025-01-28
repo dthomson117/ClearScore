@@ -1,6 +1,5 @@
 package com.android.data.api
 
-import android.net.ConnectivityManager
 import com.squareup.moshi.JsonDataException
 import io.github.aakira.napier.Napier
 import retrofit2.HttpException
@@ -11,11 +10,11 @@ import java.io.IOException
  * Provides a generic way to handle API calls and their results
  */
 class ApiCallHandler(
-    private val connectivityManager: ConnectivityManager
+    private val connectivityChecker: ConnectivityChecker
 ) {
     suspend fun <T> safeApiCall(apiCall: suspend () -> Response<T>): ApiResult<T> {
-        if (connectivityManager.activeNetwork == null) {
-            return ApiResult.ApiError.IOError("No connection")
+        if (!connectivityChecker.checkConnectivity()) {
+            return ApiResult.ApiError.ResponseError("No internet connection")
         }
 
         apiCall().let { response ->

@@ -4,6 +4,7 @@ import android.net.ConnectivityManager
 import com.android.data.api.ApiCallHandler
 import com.android.data.api.AppApi
 import com.android.data.api.AppApi.Companion.BASE_URL
+import com.android.data.api.ConnectivityChecker
 import com.android.data.mapper.CreditReportInfoMapper
 import com.android.data.mapper.CreditScoreMapper
 import com.android.data.repository.CreditScoreRepositoryImpl
@@ -23,8 +24,9 @@ val dataModule = module {
     // Api
     single<OkHttpClient> { buildOkHttpClient() }
     single<AppApi> { buildRetrofitInstance(client = get()) }
+    factory { ApiCallHandler(connectivityChecker = get()) }
     factory {
-        ApiCallHandler(
+        ConnectivityChecker(
             connectivityManager = androidContext().getSystemService(
                 ConnectivityManager::class.java
             )

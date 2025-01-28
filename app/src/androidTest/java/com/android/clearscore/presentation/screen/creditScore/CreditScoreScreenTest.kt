@@ -7,9 +7,9 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.test.core.app.ApplicationProvider
+import com.android.clearscore.R
 import com.android.domain.model.CreditReportInfo
 import com.android.domain.model.CreditScore
-import com.example.clearscore.R
 import org.junit.Rule
 import org.junit.Test
 
