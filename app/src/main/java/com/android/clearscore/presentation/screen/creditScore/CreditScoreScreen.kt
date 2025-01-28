@@ -223,7 +223,7 @@ fun PreviewScoreIndicator() {
         maxScoreValue = 700
     )
 
-    ClearScoreTheme {
+    ClearScoreTheme(darkTheme = true) {
         Surface {
             CircularScoreIndicator(
                 creditReportInfo = creditReportInfo
@@ -235,7 +235,7 @@ fun PreviewScoreIndicator() {
 @Preview
 @Composable
 fun PreviewError() {
-    ClearScoreTheme {
+    ClearScoreTheme(darkTheme = true) {
         Surface {
             CreditScoreError(handleUiEvent = {})
         }
@@ -251,7 +251,7 @@ fun PreviewScreen() {
         creditScore = CreditScore.default()
     )
 
-    ClearScoreTheme {
+    ClearScoreTheme(darkTheme = true) {
         Surface {
             CreditScoreScreen(
                 uiState = uiState,
@@ -270,7 +270,7 @@ fun PreviewScreenLoading() {
         creditScore = CreditScore.default()
     )
 
-    ClearScoreTheme {
+    ClearScoreTheme(darkTheme = true) {
         Surface {
             CreditScoreScreen(
                 uiState = uiState,
@@ -280,7 +280,7 @@ fun PreviewScreenLoading() {
     }
 }
 
-@Preview
+@Preview()
 @Composable
 fun PreviewScreenError() {
     val uiState = CreditScoreViewModelState(
@@ -289,7 +289,7 @@ fun PreviewScreenError() {
         creditScore = CreditScore.default()
     )
 
-    ClearScoreTheme {
+    ClearScoreTheme(darkTheme = true) {
         Surface {
             CreditScoreScreen(
                 uiState = uiState,
