@@ -23,3 +23,4 @@ rootProject.name = "ClearScore"
 include(":app")
 include(":data")
 include(":domain")
+include(":common_kotlin")
