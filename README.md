@@ -114,10 +114,14 @@ in light mode the contrast isn't as great and could definitely use some tweaking
 <figcaption>Success state</figcaption>
 </figure>
 
+<br>
+
 <figure>
 <img src="img/uiLoading.png" width="200" alt="UI Loading state">
 <figcaption>Loading state</figcaption>
 </figure>
+
+<br>
 
 <figure>
 <img src="img/uiError.png" width="200" alt="UI Error state">
