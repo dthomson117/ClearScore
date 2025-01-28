@@ -4,12 +4,16 @@ import android.content.Context
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertTextContains
 import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
+import androidx.compose.ui.test.performClick
 import androidx.test.core.app.ApplicationProvider
 import com.android.clearscore.R
 import com.android.domain.model.CreditReportInfo
 import com.android.domain.model.CreditScore
+import io.mockk.mockk
+import io.mockk.verify
 import org.junit.Rule
 import org.junit.Test
 
@@ -73,4 +77,19 @@ class CreditScoreScreenTest {
             maxScoreValue = 700
         )
     )
+
+    @Test
+    fun refresh_button_SHOULD_call_refresh_function_WHEN_pressed() {
+        val uiState = CreditScoreViewModelState(loading = false, creditScore = creditScore, error = true)
+        val callback: (CreditScoreUiEvent) -> Unit = mockk(relaxed = true)
+
+        composeTestRule.setContent {
+            CreditScoreScreen(uiState = uiState, handleUiEvent = callback)
+        }
+
+        composeTestRule.onNodeWithContentDescription(context.getString(R.string.refresh_cd))
+            .assertIsDisplayed()
+            .performClick()
+        verify { callback(CreditScoreUiEvent.Refresh) }
+    }
 }
